@@ -76,9 +76,9 @@ public class UnitServiceImplComponentTest {
 
 		unitService.addOrganization(unit, new Organization());
 
-		assertThat(unit.getOrganizations(), is(not(empty())));
+		assertThat(unit.getUnitOrganizations(), is(not(empty())));
 
-		for(UnitOrganization unitOrganization : unit.getOrganizations()) {
+		for(UnitOrganization unitOrganization : unit.getUnitOrganizations()) {
 			Organization organization = unitOrganization.getOrganization();
 			assertThat(organization, is(notNullValue()));
 			assertThat(organization.getNodeId(), is(notNullValue()));

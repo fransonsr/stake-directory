@@ -67,7 +67,7 @@ public class UnitServiceImplTest {
 
 		unitService.addOrganization(unit, organization);
 
-		Set<UnitOrganization> organizations = unit.getOrganizations();
+		Set<UnitOrganization> organizations = unit.getUnitOrganizations();
 		assertThat(organizations, is(notNullValue()));
 		assertThat(organizations, is(not(empty())));
 

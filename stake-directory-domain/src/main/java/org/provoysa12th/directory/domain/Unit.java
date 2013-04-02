@@ -1,10 +1,16 @@
 package org.provoysa12th.directory.domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
@@ -37,7 +43,7 @@ public class Unit {
 	private Type type;
 
 	@RelatedToVia(type = UnitOrganization.TYPE_UNIT_ORGANIZATION, direction = Direction.OUTGOING)
-	private Set<UnitOrganization> organizations = new HashSet<UnitOrganization>();
+	private Set<UnitOrganization> unitOrganizations = new HashSet<UnitOrganization>();
 
 	public Long getNodeId() {
 		return nodeId;
@@ -71,21 +77,45 @@ public class Unit {
 		this.type = type;
 	}
 
-	public Set<UnitOrganization> getOrganizations() {
-		return organizations;
+	public Set<UnitOrganization> getUnitOrganizations() {
+		return unitOrganizations;
 	}
 
-	public void setOrganizations(Set<UnitOrganization> organizations) {
-		this.organizations = organizations;
+	public void setUnitOrganizations(Set<UnitOrganization> unitOrganizations) {
+		this.unitOrganizations = unitOrganizations;
+	}
+
+	public Organization presidingOrganization() {
+		for(UnitOrganization unitOrganization : unitOrganizations) {
+			if(unitOrganization.isPresiding()) {
+				return unitOrganization.getOrganization();
+			}
+		}
+
+		return null;
+	}
+
+	public List<Organization> organizations() {
+		return organizations(UnitOrganization.SORT_ASC);
+	}
+
+	public List<Organization> organizations(Comparator<? super UnitOrganization> comparator) {
+		List<UnitOrganization> list = new ArrayList<UnitOrganization>(unitOrganizations);
+		Collections.sort(list, comparator);
+
+		List<Organization> organizations = new ArrayList<Organization>();
+		for(UnitOrganization unitOrg : list) {
+			organizations.add(unitOrg.getOrganization());
+		}
+
+		return organizations;
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((unitNumber == null) ? 0 : unitNumber.hashCode());
-		return result;
+		return new HashCodeBuilder()
+			.append(unitNumber)
+			.toHashCode();
 	}
 
 	@Override
@@ -94,15 +124,12 @@ public class Unit {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Unit))
 			return false;
 		Unit other = (Unit) obj;
-		if (unitNumber == null) {
-			if (other.unitNumber != null)
-				return false;
-		} else if (!unitNumber.equals(other.unitNumber))
-			return false;
-		return true;
+		return new EqualsBuilder()
+			.append(unitNumber, other.getUnitNumber())
+			.isEquals();
 	}
 
 	@Override
@@ -114,4 +141,5 @@ public class Unit {
 				.append("]");
 		return builder.toString();
 	}
+
 }

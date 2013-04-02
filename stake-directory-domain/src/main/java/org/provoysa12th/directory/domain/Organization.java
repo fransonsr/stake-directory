@@ -2,6 +2,8 @@ package org.provoysa12th.directory.domain;
 
 import java.util.UUID;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
@@ -76,12 +78,11 @@ public class Organization {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		result = prime * result + ((unit == null) ? 0 : unit.hashCode());
-		return result;
+		return new HashCodeBuilder()
+			.append(name)
+			.append(type)
+			.append(unit)
+			.toHashCode();
 	}
 
 	@Override
@@ -93,19 +94,11 @@ public class Organization {
 		if (getClass() != obj.getClass())
 			return false;
 		Organization other = (Organization) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (type != other.type)
-			return false;
-		if (unit == null) {
-			if (other.unit != null)
-				return false;
-		} else if (!unit.equals(other.unit))
-			return false;
-		return true;
+		return new EqualsBuilder()
+			.append(name, other.getName())
+			.append(type, other.getType())
+			.append(unit, other.getUnit())
+			.isEquals();
 	}
 
 	@Override
@@ -117,6 +110,5 @@ public class Organization {
 				.append("]");
 		return builder.toString();
 	}
-
 
 }

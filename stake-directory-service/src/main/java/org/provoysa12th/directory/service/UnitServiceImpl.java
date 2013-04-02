@@ -23,13 +23,13 @@ public class UnitServiceImpl implements UnitService {
 		}
 
 		@Override
-		public Set<UnitOrganization> getOrganizations() {
-			return delegate.getOrganizations();
+		public Set<UnitOrganization> getUnitOrganizations() {
+			return delegate.getUnitOrganizations();
 		}
 
 		@Override
-		public void setOrganizations(Set<UnitOrganization> organizations) {
-			delegate.setOrganizations(organizations);
+		public void setUnitOrganizations(Set<UnitOrganization> organizations) {
+			delegate.setUnitOrganizations(organizations);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class UnitServiceImpl implements UnitService {
 		organization = organizationService.createOrUpdate(organization);
 
 		UnitAccessor unitAccessor = new UnitAccessor(unit);
-		unitAccessor.getOrganizations().add(new UnitOrganization(unit, organization));
+		unitAccessor.getUnitOrganizations().add(new UnitOrganization(unit, organization));
 		organization.setUnit(unit);
 
 		unitRepository.save(unit);

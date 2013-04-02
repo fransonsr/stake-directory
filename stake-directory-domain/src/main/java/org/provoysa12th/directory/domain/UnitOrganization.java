@@ -2,6 +2,8 @@ package org.provoysa12th.directory.domain;
 
 import java.util.Comparator;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.data.neo4j.annotation.EndNode;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.RelationshipEntity;
@@ -105,12 +107,10 @@ public class UnitOrganization {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((organization == null) ? 0 : organization.hashCode());
-		result = prime * result + ((unit == null) ? 0 : unit.hashCode());
-		return result;
+		return new HashCodeBuilder()
+			.append(organization)
+			.append(unit)
+			.toHashCode();
 	}
 
 	@Override
@@ -122,17 +122,10 @@ public class UnitOrganization {
 		if (getClass() != obj.getClass())
 			return false;
 		UnitOrganization other = (UnitOrganization) obj;
-		if (organization == null) {
-			if (other.organization != null)
-				return false;
-		} else if (!organization.equals(other.organization))
-			return false;
-		if (unit == null) {
-			if (other.unit != null)
-				return false;
-		} else if (!unit.equals(other.unit))
-			return false;
-		return true;
+		return new EqualsBuilder()
+			.append(organization, other.getOrganization())
+			.append(unit, other.getUnit())
+			.isEquals();
 	}
 
 	@Override
