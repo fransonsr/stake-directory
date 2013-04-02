@@ -7,12 +7,14 @@
   </parent>
   <artifactId>stake-directory-domain</artifactId>
   <name>stake-directory-domain</name>
+  <repositories>
+    <repository>
+      <id>neo4j-public-repository</id>
+      <url>http://m2.neo4j.org/</url>
+      <name>Publicly available Maven 2 repository for Neo4j</name>
+    </repository>
+  </repositories>
   <dependencies>
-  	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<scope>test</scope>
-  	</dependency>
   	<dependency>
   		<groupId>org.mockito</groupId>
   		<artifactId>mockito-core</artifactId>
@@ -20,6 +22,30 @@
   	<dependency>
   		<groupId>org.hamcrest</groupId>
   		<artifactId>hamcrest-core</artifactId>
+  	</dependency>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<scope>test</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework.data</groupId>
+  		<artifactId>spring-data-neo4j</artifactId>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-test</artifactId>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.neo4j</groupId>
+  		<artifactId>neo4j-kernel</artifactId>
+  		<version>1.8.1</version>
+  		<classifier>tests</classifier>
+  		<scope>test</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.hibernate</groupId>
+  		<artifactId>hibernate-validator</artifactId>
   	</dependency>
   </dependencies>
 </project>

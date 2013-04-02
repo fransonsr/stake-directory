@@ -1,5 +1,10 @@
 package org.provoysa12th.directory.domain;
 
+import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.Indexed;
+import org.springframework.data.neo4j.annotation.NodeEntity;
+
+@NodeEntity
 public class Unit {
 
 	public static enum Type {
@@ -7,9 +12,21 @@ public class Unit {
 		WARD;
 	}
 
+	@GraphId
+	private Long nodeId;
+
 	private String name;
+	@Indexed
 	private int unitNumber;
 	private Type unitType;
+
+	public Long getNodeId() {
+		return nodeId;
+	}
+
+	public void setNodeId(Long nodeId) {
+		this.nodeId = nodeId;
+	}
 
 	public String getName() {
 		return name;
