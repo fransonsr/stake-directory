@@ -119,7 +119,7 @@ public class UnitOrganization {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof UnitOrganization))
 			return false;
 		UnitOrganization other = (UnitOrganization) obj;
 		return new EqualsBuilder()

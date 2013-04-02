@@ -9,21 +9,30 @@ import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
 /**
- * Represents a organization associated with a Unit.
+ * Represents and individual position for an Organization.
  * <p>
- * Business key: name, type, unit
+ * Business key: name, type, organization
  * </p>
  * @author FransonSR
  *
  */
 @NodeEntity
-public class Organization {
+public class Position {
 
 	public static enum Type {
-		Presidency,
-		Bishopric,
-		Council,
-		HighCouncil;
+		President,
+		Counselor_1st,
+		Counselor_2nd,
+		Secretary,
+		AssistantSecretary,
+		Clerk,
+		AssistantClerk,
+		CouncilChair,
+		CouncilCoChair,
+		CouncilMember,
+		HighCouncilor,
+		HighCouncilorRepresentative,
+		ReliefSocietySpecialist;
 	}
 
 	@GraphId
@@ -31,10 +40,9 @@ public class Organization {
 
 	@Indexed
 	private UUID uuid;
-
 	private String name;
 	private Type type;
-	private Unit unit;
+	private Organization organization;
 
 	public Long getNodeId() {
 		return nodeId;
@@ -68,20 +76,20 @@ public class Organization {
 		this.type = type;
 	}
 
-	public Unit getUnit() {
-		return unit;
+	public Organization getOrganization() {
+		return organization;
 	}
 
-	public void setUnit(Unit unit) {
-		this.unit = unit;
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
 	}
 
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder()
 			.append(name)
+			.append(organization)
 			.append(type)
-			.append(unit)
 			.toHashCode();
 	}
 
@@ -91,24 +99,13 @@ public class Organization {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Organization))
+		if (!(obj instanceof Position))
 			return false;
-		Organization other = (Organization) obj;
+		Position other = (Position) obj;
 		return new EqualsBuilder()
 			.append(name, other.getName())
+			.append(organization, other.getOrganization())
 			.append(type, other.getType())
-			.append(unit, other.getUnit())
 			.isEquals();
 	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Organization [name=").append(name)
-				.append(", type=").append(type)
-				.append(", unit=").append(unit)
-				.append("]");
-		return builder.toString();
-	}
-
 }
