@@ -1,6 +1,6 @@
 package org.provoysa12th.directory.domain.repository;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 import java.util.UUID;

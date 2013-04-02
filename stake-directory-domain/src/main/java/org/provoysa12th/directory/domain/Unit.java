@@ -1,6 +1,9 @@
 package org.provoysa12th.directory.domain;
 
+import java.util.HashSet;
 import java.util.Set;
+
+import javax.validation.constraints.NotNull;
 
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.GraphId;
@@ -27,13 +30,15 @@ public class Unit {
 	@GraphId
 	private Long nodeId;
 
+	@NotNull
 	private String name;
 	@Indexed
-	private int unitNumber;
+	private Integer unitNumber;
+
 	private Type type;
 
 	@RelatedToVia(type = UnitOrganization.TYPE_UNIT_ORGANIZATION, direction = Direction.OUTGOING)
-	private Set<UnitOrganization> organizations;
+	private Set<UnitOrganization> organizations = new HashSet<UnitOrganization>();
 
 	public Long getNodeId() {
 		return nodeId;
@@ -51,11 +56,11 @@ public class Unit {
 		this.name = name;
 	}
 
-	public int getUnitNumber() {
+	public Integer getUnitNumber() {
 		return unitNumber;
 	}
 
-	public void setUnitNumber(int unitNumber) {
+	public void setUnitNumber(Integer unitNumber) {
 		this.unitNumber = unitNumber;
 	}
 
@@ -79,7 +84,8 @@ public class Unit {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + unitNumber;
+		result = prime * result
+				+ ((unitNumber == null) ? 0 : unitNumber.hashCode());
 		return result;
 	}
 
@@ -92,7 +98,10 @@ public class Unit {
 		if (getClass() != obj.getClass())
 			return false;
 		Unit other = (Unit) obj;
-		if (unitNumber != other.unitNumber)
+		if (unitNumber == null) {
+			if (other.unitNumber != null)
+				return false;
+		} else if (!unitNumber.equals(other.unitNumber))
 			return false;
 		return true;
 	}

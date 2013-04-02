@@ -46,6 +46,23 @@ public class UnitOrganization {
 	private int orderIndex = -1;
 	private boolean presiding;
 
+	public UnitOrganization() {}
+
+	public UnitOrganization(Unit unit, Organization organization) {
+		this(unit, organization, false, -1);
+	}
+
+	public UnitOrganization(Unit unit, Organization organization, boolean presiding) {
+		this(unit, organization, presiding, -1);
+	}
+
+	public UnitOrganization(Unit unit, Organization organization, boolean presiding, int orderIndex) {
+		this.unit = unit;
+		this.organization = organization;
+		this.presiding = presiding;
+		this.orderIndex = orderIndex;
+	}
+
 	public Long getRelationshipId() {
 		return relationshipId;
 	}
