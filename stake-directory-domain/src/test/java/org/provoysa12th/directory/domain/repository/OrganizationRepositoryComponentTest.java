@@ -5,7 +5,7 @@ import static org.hamcrest.MatcherAssert.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.provoysa12th.directory.domain.Unit;
+import org.provoysa12th.directory.domain.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -13,21 +13,20 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @ContextConfiguration(classes = {RepositoryComponentTestConfiguration.class})
-@Transactional
 @TransactionConfiguration
+@Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
-public class UnitRepositoryComponentTest {
+public class OrganizationRepositoryComponentTest {
 
 	@Autowired
-	UnitRepository unitRepository;
+	OrganizationRepository organizationRepository;
 
 	@Test
 	public void testSave() throws Exception {
-		Unit unit = new Unit();
-		Unit savedUnit = unitRepository.save(unit);
+		Organization org = new Organization();
+		Organization savedOrg = organizationRepository.save(org);
 
-		Unit actual = unitRepository.findOne(savedUnit.getNodeId());
+		Organization actual = organizationRepository.findOne(savedOrg.getNodeId());
 		assertThat(actual, is(notNullValue()));
 	}
-
 }

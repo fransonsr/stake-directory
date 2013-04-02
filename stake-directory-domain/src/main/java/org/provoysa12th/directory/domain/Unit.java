@@ -4,12 +4,20 @@ import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
+/**
+ * Represents a Church unit (i.e., stake or ward).
+ * <p>
+ * Business key: unitNumber
+ * </p>
+ * @author FransonSR
+ *
+ */
 @NodeEntity
 public class Unit {
 
 	public static enum Type {
-		STAKE,
-		WARD;
+		Stake,
+		Ward;
 	}
 
 	@GraphId
@@ -50,6 +58,28 @@ public class Unit {
 
 	public void setUnitType(Type unitType) {
 		this.unitType = unitType;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + unitNumber;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Unit other = (Unit) obj;
+		if (unitNumber != other.unitNumber)
+			return false;
+		return true;
 	}
 
 }
