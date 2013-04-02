@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.provoysa12th.directory.domain.Organization;
 import org.provoysa12th.directory.domain.Unit;
+import org.provoysa12th.directory.domain.UnitOrganization;
 import org.provoysa12th.directory.domain.repository.UnitRepository;
 
 public class UnitServiceImplTest {
@@ -66,7 +67,7 @@ public class UnitServiceImplTest {
 
 		unitService.addOrganization(unit, organization);
 
-		Set<Organization> organizations = unitService.getOrganizations(unit);
+		Set<UnitOrganization> organizations = unit.getOrganizations();
 		assertThat(organizations, is(notNullValue()));
 		assertThat(organizations, is(not(empty())));
 

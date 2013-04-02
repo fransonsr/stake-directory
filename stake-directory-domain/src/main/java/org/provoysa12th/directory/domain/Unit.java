@@ -34,7 +34,6 @@ public class Unit {
 	private String name;
 	@Indexed
 	private Integer unitNumber;
-
 	private Type type;
 
 	@RelatedToVia(type = UnitOrganization.TYPE_UNIT_ORGANIZATION, direction = Direction.OUTGOING)

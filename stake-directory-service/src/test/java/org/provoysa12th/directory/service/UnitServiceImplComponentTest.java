@@ -5,20 +5,28 @@ import static org.hamcrest.MatcherAssert.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.provoysa12th.directory.domain.Organization;
 import org.provoysa12th.directory.domain.Unit;
 import org.provoysa12th.directory.domain.Unit.Type;
+import org.provoysa12th.directory.domain.UnitOrganization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 
-@TransactionConfiguration
 @ContextConfiguration(classes = {ServiceComponentTestConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UnitServiceImplComponentTest {
 
 	@Autowired
 	UnitService unitService;
+
+	private Unit testUnit() {
+		Unit newUnit = new Unit();
+		newUnit.setName("Test Unit");
+		newUnit.setType(Type.Ward);
+		newUnit.setUnitNumber(1234);
+		return newUnit;
+	}
 
 	@Test
 	public void testFindById() throws Exception {
@@ -53,13 +61,28 @@ public class UnitServiceImplComponentTest {
 
 	@Test
 	public void testCreateOrSave() throws Exception {
-		Unit newUnit = new Unit();
-		newUnit.setName("Test Unit");
-		newUnit.setType(Type.Ward);
-		newUnit.setUnitNumber(1234);
+		Unit newUnit = testUnit();
 
 		Unit actual = unitService.createOrUpdate(newUnit);
 		assertThat(actual, is(notNullValue()));
 		assertThat(actual, equalTo(newUnit));
+	}
+
+	@Test
+	public void testAddOrganization_transitivePersistence() throws Exception {
+		Unit newUnit = testUnit();
+
+		Unit unit = unitService.createOrUpdate(newUnit);
+
+		unitService.addOrganization(unit, new Organization());
+
+		assertThat(unit.getOrganizations(), is(not(empty())));
+
+		for(UnitOrganization unitOrganization : unit.getOrganizations()) {
+			Organization organization = unitOrganization.getOrganization();
+			assertThat(organization, is(notNullValue()));
+			assertThat(organization.getNodeId(), is(notNullValue()));
+			assertThat(organization.getUnit(), is(unit));
+		}
 	}
 }

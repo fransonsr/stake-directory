@@ -1,6 +1,5 @@
 package org.provoysa12th.directory.service;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.provoysa12th.directory.domain.Organization;
@@ -64,17 +63,6 @@ public class UnitServiceImpl implements UnitService {
 		organization.setUnit(unit);
 
 		unitRepository.save(unit);
-	}
-
-	@Override
-	public Set<Organization> getOrganizations(Unit unit) {
-		UnitAccessor unitAccessor = new UnitAccessor(unit);
-		Set<Organization> units = new HashSet<Organization>();
-		for(UnitOrganization unitOrganization : unitAccessor.getOrganizations()) {
-			units .add(unitOrganization.getOrganization());
-		}
-
-		return units;
 	}
 
 }
