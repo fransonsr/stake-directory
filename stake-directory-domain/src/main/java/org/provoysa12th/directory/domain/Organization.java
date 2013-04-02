@@ -8,6 +8,9 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 
 /**
  * Represents a organization associated with a Unit.
+ * <p>
+ * Business key: name, type, unit
+ * </p>
  * @author FransonSR
  *
  */
@@ -30,7 +33,6 @@ public class Organization {
 	private String name;
 	private Type type;
 	private Unit unit;
-	private boolean presiding;
 
 	public Long getNodeId() {
 		return nodeId;
@@ -72,14 +74,6 @@ public class Organization {
 		this.unit = unit;
 	}
 
-	public boolean isPresiding() {
-		return presiding;
-	}
-
-	public void setPresiding(boolean presiding) {
-		this.presiding = presiding;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -113,5 +107,16 @@ public class Organization {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Organization [name=").append(name)
+				.append(", type=").append(type)
+				.append(", unit=").append(unit)
+				.append("]");
+		return builder.toString();
+	}
+
 
 }

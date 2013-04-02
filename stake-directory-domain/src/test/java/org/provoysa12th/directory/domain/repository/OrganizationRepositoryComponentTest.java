@@ -3,6 +3,8 @@ package org.provoysa12th.directory.domain.repository;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
+import java.util.UUID;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.provoysa12th.directory.domain.Organization;
@@ -24,6 +26,8 @@ public class OrganizationRepositoryComponentTest {
 	@Test
 	public void testSave() throws Exception {
 		Organization org = new Organization();
+		org.setUuid(UUID.randomUUID());
+
 		Organization savedOrg = organizationRepository.save(org);
 
 		Organization actual = organizationRepository.findOne(savedOrg.getNodeId());

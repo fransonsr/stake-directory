@@ -1,8 +1,12 @@
 package org.provoysa12th.directory.domain;
 
+import java.util.Set;
+
+import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 /**
  * Represents a Church unit (i.e., stake or ward).
@@ -26,7 +30,10 @@ public class Unit {
 	private String name;
 	@Indexed
 	private int unitNumber;
-	private Type unitType;
+	private Type type;
+
+	@RelatedToVia(type = UnitOrganization.TYPE_UNIT_ORGANIZATION, direction = Direction.OUTGOING)
+	private Set<UnitOrganization> organizations;
 
 	public Long getNodeId() {
 		return nodeId;
@@ -52,12 +59,20 @@ public class Unit {
 		this.unitNumber = unitNumber;
 	}
 
-	public Type getUnitType() {
-		return unitType;
+	public Type getType() {
+		return type;
 	}
 
-	public void setUnitType(Type unitType) {
-		this.unitType = unitType;
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	public Set<UnitOrganization> getOrganizations() {
+		return organizations;
+	}
+
+	public void setOrganizations(Set<UnitOrganization> organizations) {
+		this.organizations = organizations;
 	}
 
 	@Override
@@ -82,4 +97,13 @@ public class Unit {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Unit [name=").append(name)
+				.append(", unitNumber=").append(unitNumber)
+				.append(", unitType=").append(type)
+				.append("]");
+		return builder.toString();
+	}
 }

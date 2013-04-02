@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.provoysa12th.directory.domain.Unit;
+import org.provoysa12th.directory.domain.Unit.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,6 +25,8 @@ public class UnitRepositoryComponentTest {
 	@Test
 	public void testSave() throws Exception {
 		Unit unit = new Unit();
+		unit.setType(Type.Ward);
+
 		Unit savedUnit = unitRepository.save(unit);
 
 		Unit actual = unitRepository.findOne(savedUnit.getNodeId());
