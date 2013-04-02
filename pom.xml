@@ -7,6 +7,7 @@
 	<name>stake-directory-parent</name>
 	<modules>
 		<module>stake-directory-domain</module>
+		<module>stake-directory-service</module>
 	</modules>
 	<repositories>
 		<repository>
@@ -212,6 +213,11 @@
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
 				<version>4.3.1.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.provoysa12th</groupId>
+				<artifactId>stake-directory-domain</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
