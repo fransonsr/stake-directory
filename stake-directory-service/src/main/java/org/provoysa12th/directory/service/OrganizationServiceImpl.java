@@ -5,6 +5,8 @@ import java.util.UUID;
 import javax.annotation.PostConstruct;
 
 import org.provoysa12th.directory.domain.Organization;
+import org.provoysa12th.directory.domain.OrganizationPosition;
+import org.provoysa12th.directory.domain.Position;
 import org.provoysa12th.directory.domain.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	@Autowired
 	OrganizationRepository organizationRepository;
+	@Autowired
+	PositionService positionService;
 	BaseServiceHelper<Organization> helper;
 
 	@PostConstruct
@@ -36,5 +40,13 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public Organization createOrUpdate(Organization entity) {
 		return helper.createOrUpdate(entity);
+	}
+
+	@Override
+	public void addPosition(Organization organization, Position position) {
+		positionService.createOrUpdate(position);
+
+		organization.getOrganizationPositions().add(new OrganizationPosition(organization, position));
+		organizationRepository.saveEntity(organization);
 	}
 }

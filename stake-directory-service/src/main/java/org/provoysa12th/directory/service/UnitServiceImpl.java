@@ -55,6 +55,6 @@ public class UnitServiceImpl implements UnitService {
 		unit.getUnitOrganizations().add(new UnitOrganization(unit, organization));
 		organization.setUnit(unit);
 
-		unitRepository.save(unit);
+		unitRepository.saveEntity(unit);
 	}
 }
