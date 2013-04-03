@@ -1,6 +1,5 @@
 package org.provoysa12th.directory.service;
 
-import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
@@ -16,25 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Transactional
 public class UnitServiceImpl implements UnitService {
-
-	private static class UnitAccessor extends Unit {
-
-		private Unit delegate;
-
-		public UnitAccessor(Unit unit) {
-			this.delegate = unit;
-		}
-
-		@Override
-		public Set<UnitOrganization> getUnitOrganizations() {
-			return delegate.getUnitOrganizations();
-		}
-
-		@Override
-		public void setUnitOrganizations(Set<UnitOrganization> organizations) {
-			delegate.setUnitOrganizations(organizations);
-		}
-	}
 
 	@Autowired
 	UnitRepository unitRepository;
@@ -72,8 +52,7 @@ public class UnitServiceImpl implements UnitService {
 	public void addOrganization(Unit unit, Organization organization) {
 		organization = organizationService.createOrUpdate(organization);
 
-		UnitAccessor unitAccessor = new UnitAccessor(unit);
-		unitAccessor.getUnitOrganizations().add(new UnitOrganization(unit, organization));
+		unit.getUnitOrganizations().add(new UnitOrganization(unit, organization));
 		organization.setUnit(unit);
 
 		unitRepository.save(unit);

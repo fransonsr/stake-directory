@@ -83,4 +83,16 @@ public class Position extends BaseEntity {
 			.append(type, other.getType())
 			.isEquals();
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Position [name=").append(name)
+				.append(", type=").append(type)
+				.append(", organization=").append(organization)
+				.append("]");
+		return builder.toString();
+	}
+
+
 }
