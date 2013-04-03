@@ -6,6 +6,7 @@ import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Set;
+import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +29,7 @@ public class UnitServiceImplTest {
 		unitService = new UnitServiceImpl();
 		unitService.unitRepository = unitRepository;
 		unitService.organizationService = organizationService;
+		unitService.init();
 	}
 
 	@Test
@@ -40,6 +42,26 @@ public class UnitServiceImplTest {
 	}
 
 	@Test
+	public void testFindByUUID() throws Exception {
+		UUID uuid = UUID.randomUUID();
+
+		when(unitRepository.findByPropertyValue("uuid", uuid)).thenReturn(new Unit());
+
+		Unit actual = unitService.findByUUID(uuid);
+		assertThat(actual, is(notNullValue()));
+	}
+
+	@Test
+	public void testCreateOrUpdate() throws Exception {
+		Unit unit = new Unit();
+
+		when(unitRepository.saveEntity(unit)).thenReturn(unit);
+
+		Unit actual = unitService.createOrUpdate(unit);
+		assertThat(actual, is(notNullValue()));
+	}
+
+	@Test
 	public void testFindByUnitNumber() throws Exception {
 		Integer unitNumber = 1234;
 		when(unitRepository.findByPropertyValue(eq("unitNumber"), eq(unitNumber))).thenReturn(new Unit());
@@ -48,14 +70,6 @@ public class UnitServiceImplTest {
 
 		assertThat(actual, is(notNullValue()));
 
-	}
-
-	@Test
-	public void testCreateOrUpdate() throws Exception {
-		Unit unit = new Unit();
-
-		unitService.createOrUpdate(unit);
-		verify(unitRepository).save(unit);
 	}
 
 	@Test

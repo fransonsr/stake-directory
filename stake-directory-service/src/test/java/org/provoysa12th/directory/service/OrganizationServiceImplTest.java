@@ -21,6 +21,7 @@ public class OrganizationServiceImplTest {
 		organizationRepository = mock(OrganizationRepository.class);
 		organizationService = new OrganizationServiceImpl();
 		organizationService.organizationRepository = organizationRepository;
+		organizationService.init();
 	}
 
 	@Test
@@ -34,28 +35,23 @@ public class OrganizationServiceImplTest {
 	}
 
 	@Test
-	public void testCreateOrUpdate_create() throws Exception {
+	public void testFindByUUID() throws Exception {
+		UUID uuid = UUID.randomUUID();
+		
+		when(organizationRepository.findByPropertyValue("uuid", uuid)).thenReturn(new Organization());
+		
+		Organization actual = organizationService.findByUUID(uuid);
+		assertThat(actual, is(notNullValue()));
+	}
+	
+	@Test
+	public void testCreateOrUpdate() throws Exception {
 		Organization organization = new Organization();
 
-		when(organizationRepository.save(organization)).thenReturn(organization);
+		when(organizationRepository.saveEntity(organization)).thenReturn(organization);
 
 		Organization actual = organizationService.createOrUpdate(organization);
 		assertThat(actual, is(notNullValue()));
-		assertThat(actual.getUuid(), is(notNullValue()));
-	}
-
-	@Test
-	public void testCreateOrUpdate_update() throws Exception {
-		Organization organization = new Organization();
-		organization.setNodeId(1234L);
-
-		UUID uuid = UUID.randomUUID();
-		organization.setUuid(uuid);
-
-		when(organizationRepository.save(organization)).thenReturn(organization);
-
-		Organization actual = organizationService.createOrUpdate(organization);
-		assertThat(actual.getUuid(), is(equalTo(uuid)));
 	}
 
 }

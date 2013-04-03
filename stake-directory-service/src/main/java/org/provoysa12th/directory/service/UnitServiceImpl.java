@@ -1,6 +1,9 @@
 package org.provoysa12th.directory.service;
 
 import java.util.Set;
+import java.util.UUID;
+
+import javax.annotation.PostConstruct;
 
 import org.provoysa12th.directory.domain.Organization;
 import org.provoysa12th.directory.domain.Unit;
@@ -35,23 +38,34 @@ public class UnitServiceImpl implements UnitService {
 
 	@Autowired
 	UnitRepository unitRepository;
+	BaseServiceHelper<Unit> helper;
 
 	@Autowired
 	OrganizationService organizationService;
 
+	@PostConstruct
+	public void init() {
+		helper = new BaseServiceHelper<Unit>(unitRepository);
+	}
+
 	@Override
 	public Unit findById(Long id) {
-		return unitRepository.findOne(id);
+		return helper.findById(id);
+	}
+
+	@Override
+	public Unit findByUUID(UUID uuid) {
+		return helper.findByUUID(uuid);
+	}
+
+	@Override
+	public Unit createOrUpdate(Unit entity) {
+		return helper.createOrUpdate(entity);
 	}
 
 	@Override
 	public Unit findByUnitNumber(Integer unitNumber) {
 		return unitRepository.findByPropertyValue("unitNumber", unitNumber);
-	}
-
-	@Override
-	public Unit createOrUpdate(Unit unit) {
-		return unitRepository.save(unit);
 	}
 
 	@Override
@@ -64,5 +78,4 @@ public class UnitServiceImpl implements UnitService {
 
 		unitRepository.save(unit);
 	}
-
 }
