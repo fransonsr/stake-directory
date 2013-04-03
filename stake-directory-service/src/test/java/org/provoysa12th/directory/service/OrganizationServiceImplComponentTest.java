@@ -8,6 +8,8 @@ import java.util.UUID;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.provoysa12th.directory.domain.Organization;
+import org.provoysa12th.directory.domain.OrganizationPosition;
+import org.provoysa12th.directory.domain.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -32,6 +34,22 @@ public class OrganizationServiceImplComponentTest {
 	@Test
 	public void testFindById_notFound() throws Exception {
 		Organization actual = organizationService.findById(1234L);
+		assertThat(actual, is(nullValue()));
+	}
+
+	@Test
+	public void testFindByUUID() throws Exception {
+		Organization org = organizationService.createOrUpdate(new Organization());
+
+		UUID uuid = org.getUuid();
+
+		Organization actual = organizationService.findByUUID(uuid);
+		assertThat(actual, is(equalTo(org)));
+	}
+
+	@Test
+	public void testFindByUUID_notFound() throws Exception {
+		Organization actual = organizationService.findByUUID(UUID.randomUUID());
 		assertThat(actual, is(nullValue()));
 	}
 
@@ -61,5 +79,18 @@ public class OrganizationServiceImplComponentTest {
 		assertThat(actual.getNodeId(), is(equalTo(nodeId)));
 		assertThat(actual.getUuid(), is(equalTo(uuid)));
 		assertThat(actual.getName(), is(equalTo("Modified Test Organization")));
+	}
+
+	@Test
+	public void testAddPosition_tansitivePersistence() throws Exception {
+		Organization organization = organizationService.createOrUpdate(new Organization());
+		Position position = new Position();
+
+		organizationService.addPosition(organization, position);
+
+		assertThat(organization.getOrganizationPositions(), is(not(empty())));
+		for(OrganizationPosition orgPosition : organization.getOrganizationPositions()) {
+			assertThat(orgPosition.getPosition().getNodeId(), is(notNullValue()));
+		}
 	}
 }

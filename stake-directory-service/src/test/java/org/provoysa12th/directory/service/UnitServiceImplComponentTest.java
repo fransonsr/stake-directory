@@ -1,7 +1,9 @@
 package org.provoysa12th.directory.service;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
+
+import java.util.UUID;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,6 +53,22 @@ public class UnitServiceImplComponentTest {
 
 		Unit actual = unitService.findByUnitNumber(1234);
 		assertThat(actual, is(notNullValue()));
+	}
+
+	@Test
+	public void testFindByUUID() throws Exception {
+		Unit unit = unitService.createOrUpdate(new Unit());
+
+		UUID uuid = unit.getUuid();
+
+		Unit actual = unitService.findByUUID(uuid);
+		assertThat(actual, is(equalTo(unit)));
+	}
+
+	@Test
+	public void testFindByUUID_notFound() throws Exception {
+		Unit actual = unitService.findByUUID(UUID.randomUUID());
+		assertThat(actual, is(nullValue()));
 	}
 
 	@Test
