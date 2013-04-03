@@ -1,7 +1,7 @@
 package org.provoysa12th.directory.domain.repository;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 import java.util.UUID;
 
@@ -24,13 +24,30 @@ public class OrganizationRepositoryComponentTest {
 	OrganizationRepository organizationRepository;
 
 	@Test
-	public void testSave() throws Exception {
+	public void testSaveEntity_create() throws Exception {
 		Organization org = new Organization();
-		org.setUuid(UUID.randomUUID());
 
-		Organization savedOrg = organizationRepository.save(org);
-
-		Organization actual = organizationRepository.findOne(savedOrg.getNodeId());
+		Organization actual = organizationRepository.saveEntity(org);
 		assertThat(actual, is(notNullValue()));
+		assertThat(actual.getUuid(), is(notNullValue()));
+	}
+
+	@Test
+	public void testSaveEntity_update() throws Exception {
+		Organization org = new Organization();
+		org.setName("Test Org");
+
+		org = organizationRepository.saveEntity(org);
+		UUID uuid = org.getUuid();
+
+		assertThat(org, is(notNullValue()));
+		assertThat(uuid, is(notNullValue()));
+
+		org.setName("Updated Name");
+
+		Organization actual = organizationRepository.saveEntity(org);
+		assertThat(actual, is(notNullValue()));
+		assertThat(actual.getUuid(), is(equalTo(uuid)));
+		assertThat(actual.getName(), is("Updated Name"));
 	}
 }

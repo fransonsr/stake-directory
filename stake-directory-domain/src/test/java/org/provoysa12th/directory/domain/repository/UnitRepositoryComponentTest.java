@@ -1,12 +1,13 @@
 package org.provoysa12th.directory.domain.repository;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
+
+import java.util.UUID;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.provoysa12th.directory.domain.Unit;
-import org.provoysa12th.directory.domain.Unit.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,14 +24,26 @@ public class UnitRepositoryComponentTest {
 	UnitRepository unitRepository;
 
 	@Test
-	public void testSave() throws Exception {
-		Unit unit = new Unit();
-		unit.setType(Type.Ward);
-
-		Unit savedUnit = unitRepository.save(unit);
-
-		Unit actual = unitRepository.findOne(savedUnit.getNodeId());
+	public void testSaveEntity_create() throws Exception {
+		Unit actual = unitRepository.saveEntity(new Unit());
 		assertThat(actual, is(notNullValue()));
+		assertThat(actual.getUuid(), is(notNullValue()));
 	}
 
+	@Test
+	public void testSaveEntity_update() throws Exception {
+		Unit unit = new Unit();
+		unit.setName("Test Unit");
+
+		unit = unitRepository.saveEntity(unit);
+		UUID uuid = unit.getUuid();
+		assertThat(uuid, is(notNullValue()));
+
+		unit.setName("Updated Unit");
+
+		Unit actual = unitRepository.saveEntity(unit);
+		assertThat(actual, is(notNullValue()));
+		assertThat(actual.getUuid(), is(equalTo(uuid)));
+		assertThat(actual.getName(), is("Updated Unit"));
+	}
 }
