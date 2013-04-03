@@ -1,11 +1,7 @@
 package org.provoysa12th.directory.domain;
 
-import java.util.UUID;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
 /**
@@ -17,7 +13,7 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
  *
  */
 @NodeEntity
-public class Position {
+public class Position extends BaseEntity {
 
 	public static enum Type {
 		President,
@@ -35,30 +31,9 @@ public class Position {
 		ReliefSocietySpecialist;
 	}
 
-	@GraphId
-	private Long nodeId;
-
-	@Indexed
-	private UUID uuid;
 	private String name;
 	private Type type;
-	private Organization organization;
-
-	public Long getNodeId() {
-		return nodeId;
-	}
-
-	public void setNodeId(Long nodeId) {
-		this.nodeId = nodeId;
-	}
-
-	public UUID getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
-	}
+	private BaseEntity organization;
 
 	public String getName() {
 		return name;
@@ -76,11 +51,11 @@ public class Position {
 		this.type = type;
 	}
 
-	public Organization getOrganization() {
+	public BaseEntity getOrganization() {
 		return organization;
 	}
 
-	public void setOrganization(Organization organization) {
+	public void setOrganization(BaseEntity organization) {
 		this.organization = organization;
 	}
 

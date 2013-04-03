@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.neo4j.graphdb.Direction;
-import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
@@ -26,15 +25,12 @@ import org.springframework.data.neo4j.annotation.RelatedToVia;
  *
  */
 @NodeEntity
-public class Unit {
+public class Unit extends BaseEntity {
 
 	public static enum Type {
 		Stake,
 		Ward;
 	}
-
-	@GraphId
-	private Long nodeId;
 
 	@NotNull
 	private String name;
@@ -44,14 +40,6 @@ public class Unit {
 
 	@RelatedToVia(type = UnitOrganization.TYPE_UNIT_ORGANIZATION, direction = Direction.OUTGOING)
 	private Set<UnitOrganization> unitOrganizations = new HashSet<UnitOrganization>();
-
-	public Long getNodeId() {
-		return nodeId;
-	}
-
-	public void setNodeId(Long nodeId) {
-		this.nodeId = nodeId;
-	}
 
 	public String getName() {
 		return name;
