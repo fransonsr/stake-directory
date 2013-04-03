@@ -5,6 +5,11 @@ import java.util.UUID;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 
+/**
+ * Base class for entities.
+ * @author FransonSR
+ *
+ */
 public abstract class BaseEntity {
 
 	@GraphId

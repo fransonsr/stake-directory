@@ -1,9 +1,17 @@
 package org.provoysa12th.directory.domain;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 /**
  * Represents a organization associated with a Unit.
@@ -27,6 +35,9 @@ public class Organization extends BaseEntity {
 	private Type type;
 	private Unit unit;
 
+	@RelatedToVia(type = OrganizationPosition.TYPE_ORGANIZATION_POSITION)
+	private Set<OrganizationPosition> organizationPositions = new HashSet<OrganizationPosition>();
+
 	public String getName() {
 		return name;
 	}
@@ -49,6 +60,41 @@ public class Organization extends BaseEntity {
 
 	public void setUnit(Unit unit) {
 		this.unit = unit;
+	}
+
+	public Set<OrganizationPosition> getOrganizationPositions() {
+		return organizationPositions;
+	}
+
+	public void setOrganizationPositions(
+			Set<OrganizationPosition> organizationPositions) {
+		this.organizationPositions = organizationPositions;
+	}
+
+	public Position presidingPosition() {
+		for(OrganizationPosition op : organizationPositions) {
+			if(op.isPresiding()) {
+				return op.getPosition();
+			}
+		}
+
+		return null;
+	}
+
+	public List<Position> positions() {
+		return positions(OrganizationPosition.SORT_ASC);
+	}
+
+	public List<Position> positions(Comparator<? super OrganizationPosition> comparator) {
+		List<OrganizationPosition> list = new ArrayList<OrganizationPosition>(organizationPositions);
+		Collections.sort(list, comparator);
+
+		List<Position> positions = new ArrayList<Position>();
+		for(OrganizationPosition op : list) {
+			positions.add(op.getPosition());
+		}
+
+		return positions;
 	}
 
 	@Override
