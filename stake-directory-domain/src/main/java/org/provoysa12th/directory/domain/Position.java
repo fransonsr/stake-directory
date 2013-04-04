@@ -17,6 +17,7 @@ public class Position extends BaseEntity {
 
 	public static enum Type {
 		President,
+		Bishop,
 		Counselor_1st,
 		Counselor_2nd,
 		Secretary,
@@ -27,7 +28,6 @@ public class Position extends BaseEntity {
 		CouncilCoChair,
 		CouncilMember,
 		HighCouncilor,
-		HighCouncilorRepresentative,
 		ReliefSocietySpecialist;
 	}
 
