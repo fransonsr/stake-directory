@@ -85,6 +85,8 @@ public class UnitServiceImplTest {
 		assertThat(organizations, is(notNullValue()));
 		assertThat(organizations, is(not(empty())));
 
+		assertThat(organization.getUnit(), is(unit));
+
 		verify(unitRepository).saveEntity(unit);
 	}
 }

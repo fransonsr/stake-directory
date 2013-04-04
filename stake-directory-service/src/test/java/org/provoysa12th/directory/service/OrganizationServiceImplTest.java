@@ -73,6 +73,9 @@ public class OrganizationServiceImplTest {
 		assertThat(positions, is(notNullValue()));
 		assertThat(positions, is(not(empty())));
 
+		assertThat(position.getOrganization(), is(organization));
+
 		verify(organizationRepository).saveEntity(organization);
 	}
+
 }

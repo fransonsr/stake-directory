@@ -44,9 +44,11 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	@Override
 	public void addPosition(Organization organization, Position position) {
-		positionService.createOrUpdate(position);
+		position = positionService.createOrUpdate(position);
 
 		organization.getOrganizationPositions().add(new OrganizationPosition(organization, position));
+		position.setOrganization(organization);
+
 		organizationRepository.saveEntity(organization);
 	}
 }

@@ -33,7 +33,7 @@ public class Position extends BaseEntity {
 
 	private String name;
 	private Type type;
-	private BaseEntity organization;
+	private Organization organization;
 
 	public String getName() {
 		return name;
@@ -51,11 +51,11 @@ public class Position extends BaseEntity {
 		this.type = type;
 	}
 
-	public BaseEntity getOrganization() {
+	public Organization getOrganization() {
 		return organization;
 	}
 
-	public void setOrganization(BaseEntity organization) {
+	public void setOrganization(Organization organization) {
 		this.organization = organization;
 	}
 

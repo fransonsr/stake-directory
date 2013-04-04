@@ -91,6 +91,7 @@ public class OrganizationServiceImplComponentTest {
 		assertThat(organization.getOrganizationPositions(), is(not(empty())));
 		for(OrganizationPosition orgPosition : organization.getOrganizationPositions()) {
 			assertThat(orgPosition.getPosition().getNodeId(), is(notNullValue()));
+			assertThat(orgPosition.getPosition().getOrganization(), is(organization));
 		}
 	}
 }
