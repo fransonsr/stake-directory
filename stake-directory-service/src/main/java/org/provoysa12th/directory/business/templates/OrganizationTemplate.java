@@ -39,7 +39,7 @@ public class OrganizationTemplate {
 			return template;
 		}
 
-		public Set<Type> forUnitType(Unit.Type unitType) {
+		public static Set<Type> forUnitType(Unit.Type unitType) {
 			Set<Type> set = EnumSet.noneOf(Type.class);
 
 			for(Type type : Type.values()) {

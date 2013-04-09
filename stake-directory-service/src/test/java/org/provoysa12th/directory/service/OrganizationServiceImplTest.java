@@ -67,7 +67,7 @@ public class OrganizationServiceImplTest {
 
 		when(positionService.createOrUpdate(position)).thenReturn(position);
 
-		organizationService.addPosition(organization, position);
+		organizationService.addPosition(organization, position, false, -1);
 
 		Set<OrganizationPosition> positions = organization.getOrganizationPositions();
 		assertThat(positions, is(notNullValue()));

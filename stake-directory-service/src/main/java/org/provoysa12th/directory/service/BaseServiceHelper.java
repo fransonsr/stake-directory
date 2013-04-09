@@ -1,5 +1,6 @@
 package org.provoysa12th.directory.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.provoysa12th.directory.domain.BaseEntity;
@@ -11,6 +12,12 @@ public class BaseServiceHelper<T extends BaseEntity> implements BaseService<T> {
 
 	public BaseServiceHelper(BaseRepository<T> baseRepository) {
 		this.baseRepository = baseRepository;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<T> findAll() {
+		return baseRepository.findAll().as(List.class);
 	}
 
 	@Override

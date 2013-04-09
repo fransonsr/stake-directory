@@ -86,7 +86,7 @@ public class OrganizationServiceImplComponentTest {
 		Organization organization = organizationService.createOrUpdate(new Organization());
 		Position position = new Position();
 
-		organizationService.addPosition(organization, position);
+		organizationService.addPosition(organization, position, false, -1);
 
 		assertThat(organization.getOrganizationPositions(), is(not(empty())));
 		for(OrganizationPosition orgPosition : organization.getOrganizationPositions()) {

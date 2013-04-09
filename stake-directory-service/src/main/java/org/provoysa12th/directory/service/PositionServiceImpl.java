@@ -1,5 +1,6 @@
 package org.provoysa12th.directory.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +23,11 @@ public class PositionServiceImpl implements PositionService {
 	@PostConstruct
 	public void init() {
 		helper = new BaseServiceHelper<Position>(baseRepository);
+	}
+
+	@Override
+	public List<Position> findAll() {
+		return helper.findAll();
 	}
 
 	@Override

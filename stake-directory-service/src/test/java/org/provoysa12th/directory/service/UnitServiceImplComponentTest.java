@@ -3,6 +3,7 @@ package org.provoysa12th.directory.service;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -28,6 +29,15 @@ public class UnitServiceImplComponentTest {
 		newUnit.setType(Type.Ward);
 		newUnit.setUnitNumber(1234);
 		return newUnit;
+	}
+
+	@Test
+	public void testFindAll() throws Exception {
+		unitService.createOrUpdate(new Unit());
+
+		List<Unit> units = unitService.findAll();
+		assertThat(units, is(notNullValue()));
+		assertThat(units, is(not(empty())));
 	}
 
 	@Test
@@ -92,7 +102,7 @@ public class UnitServiceImplComponentTest {
 
 		Unit unit = unitService.createOrUpdate(newUnit);
 
-		unitService.addOrganization(unit, new Organization());
+		unitService.addOrganization(unit, new Organization(), false, -1);
 
 		assertThat(unit.getUnitOrganizations(), is(not(empty())));
 

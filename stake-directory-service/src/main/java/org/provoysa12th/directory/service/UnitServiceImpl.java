@@ -1,5 +1,6 @@
 package org.provoysa12th.directory.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
@@ -29,6 +30,11 @@ public class UnitServiceImpl implements UnitService {
 	}
 
 	@Override
+	public List<Unit> findAll() {
+		return helper.findAll();
+	}
+
+	@Override
 	public Unit findById(Long id) {
 		return helper.findById(id);
 	}
@@ -49,12 +55,20 @@ public class UnitServiceImpl implements UnitService {
 	}
 
 	@Override
-	public void addOrganization(Unit unit, Organization organization) {
+	public UnitOrganization addOrganization(Unit unit, Organization organization) {
+		return addOrganization(unit, organization, false, -1);
+	}
+
+	@Override
+	public UnitOrganization addOrganization(Unit unit, Organization organization, boolean presiding, int orderIndex) {
 		organization = organizationService.createOrUpdate(organization);
 
-		unit.getUnitOrganizations().add(new UnitOrganization(unit, organization));
+		UnitOrganization unitOrganization = new UnitOrganization(unit, organization);
+		unit.getUnitOrganizations().add(unitOrganization);
 		organization.setUnit(unit);
 
 		unitRepository.saveEntity(unit);
+
+		return unitOrganization;
 	}
 }

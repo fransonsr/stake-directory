@@ -5,6 +5,8 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,6 +16,7 @@ import org.provoysa12th.directory.domain.Organization;
 import org.provoysa12th.directory.domain.Unit;
 import org.provoysa12th.directory.domain.UnitOrganization;
 import org.provoysa12th.directory.domain.repository.UnitRepository;
+import org.springframework.data.neo4j.conversion.EndResult;
 
 public class UnitServiceImplTest {
 
@@ -30,6 +33,19 @@ public class UnitServiceImplTest {
 		unitService.unitRepository = unitRepository;
 		unitService.organizationService = organizationService;
 		unitService.init();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testFindAll() throws Exception {
+		EndResult<Unit> endResult = mock(EndResult.class);
+		List<Unit> list = new ArrayList<Unit>();
+
+		when(unitRepository.findAll()).thenReturn(endResult);
+		when(endResult.as(List.class)).thenReturn(list);
+
+		List<Unit> actual = unitService.findAll();
+		assertThat(actual, is(notNullValue()));
 	}
 
 	@Test
@@ -79,7 +95,7 @@ public class UnitServiceImplTest {
 
 		when(organizationService.createOrUpdate(organization)).thenReturn(organization);
 
-		unitService.addOrganization(unit, organization);
+		unitService.addOrganization(unit, organization, false, -1);
 
 		Set<UnitOrganization> organizations = unit.getUnitOrganizations();
 		assertThat(organizations, is(notNullValue()));
