@@ -1,4 +1,4 @@
-package org.provoysa12th.directory.service;
+package org.provoysa12th.directory.business.templates;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,51 +6,33 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.provoysa12th.directory.business.templates.OrganizationPositionsTemplate;
-import org.provoysa12th.directory.business.templates.OrganizationTemplate;
-import org.provoysa12th.directory.business.templates.PositionTemplate;
 import org.provoysa12th.directory.domain.Organization;
 import org.provoysa12th.directory.domain.OrganizationPosition;
 import org.provoysa12th.directory.domain.Position;
 import org.provoysa12th.directory.domain.Unit;
-import org.provoysa12th.directory.domain.Unit.Type;
 import org.provoysa12th.directory.domain.UnitOrganization;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.provoysa12th.directory.service.OrganizationService;
+import org.provoysa12th.directory.service.PositionService;
+import org.provoysa12th.directory.service.UnitService;
 
-@ContextConfiguration(classes = {ServiceComponentTestConfiguration.class, TheTest.AspectConfiguration.class})
-@RunWith(SpringJUnit4ClassRunner.class)
-@TransactionConfiguration
-public class TheTest {
+public class ProvoYSA12thStakeDatabase {
 
-	private static final Logger log = Logger.getLogger(TheTest.class);
+	private static final Logger log = Logger.getLogger(ProvoYSA12thStakeDatabase.class);
 
-
-	@Configuration
-	@EnableAspectJAutoProxy()
-	@ComponentScan({"org.provoysa12th.directory.aspect"})
-	public static class AspectConfiguration {
-	}
-
-	@Autowired
 	private UnitService unitService;
-
-	@Autowired
 	private OrganizationService organizationService;
-
-	@Autowired
 	private PositionService positionService;
 
-	@Test
-	public void testLoad() throws Exception {
-		createUnit("Provo Utah YSA 12th Stake", 518468, Unit.Type.Stake);
+	public ProvoYSA12thStakeDatabase(UnitService unitService, OrganizationService organizationService, PositionService positionService) {
+		this.unitService = unitService;
+		this.organizationService = organizationService;
+		this.positionService = positionService;
+	}
+
+	public void loadDatabase() {
+		for(UnitTemplate.Type type : UnitTemplate.Type.values()) {
+			createUnit(type.getTemplate());
+		}
 
 		List<Unit> units = unitService.findAll();
 		for(Unit unit : units) {
@@ -72,11 +54,11 @@ public class TheTest {
 		}
 	}
 
-	private void createUnit(String name, int unitNumber, Type type) {
+	private void createUnit(UnitTemplate template) {
 		Unit unit = new Unit();
-		unit.setName(name);
-		unit.setUnitNumber(unitNumber);
-		unit.setType(type);
+		unit.setName(template.getName());
+		unit.setUnitNumber(template.getUnitNumber());
+		unit.setType(template.getType());
 
 		log.info("Creating unit: " + unit);
 		unit = unitService.createOrUpdate(unit);
@@ -127,4 +109,5 @@ public class TheTest {
 			org = orgPosition.getOrganization();
 		}
 	}
+
 }

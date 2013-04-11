@@ -2,7 +2,6 @@ package org.provoysa12th.directory.service;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
 
 import java.util.UUID;
 
