@@ -50,6 +50,11 @@ public class UnitServiceImpl implements UnitService {
 	}
 
 	@Override
+	public <E> E load(E entity) {
+		return helper.load(entity);
+	}
+
+	@Override
 	public Unit findByUnitNumber(Integer unitNumber) {
 		return unitRepository.findByPropertyValue("unitNumber", unitNumber);
 	}
@@ -61,12 +66,16 @@ public class UnitServiceImpl implements UnitService {
 
 	@Override
 	public UnitOrganization addOrganization(Unit unit, Organization organization, boolean presiding, int orderIndex) {
-		organization = organizationService.createOrUpdate(organization);
+		if(organization.getNodeId() == null) {
+			organization = organizationService.createOrUpdate(organization);
+		}
 
-		UnitOrganization unitOrganization = new UnitOrganization(unit, organization);
+		UnitOrganization unitOrganization = new UnitOrganization(unit, organization, presiding, orderIndex);
 		unit.getUnitOrganizations().add(unitOrganization);
+		organization.setUnitOrganization(unitOrganization);
 		organization.setUnit(unit);
 
+		organizationService.createOrUpdate(organization);
 		unitRepository.saveEntity(unit);
 
 		return unitOrganization;

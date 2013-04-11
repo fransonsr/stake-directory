@@ -41,7 +41,7 @@ public class OrganizationPositionTest {
 
 		List<OrganizationPosition> list = Arrays.asList(pos1, pos2, pos3);
 
-		Collections.sort(list, OrganizationPosition.SORT_ASC);
+		Collections.sort(list, OrganizationPosition.SORT_DESC);
 		assertThat(list.get(0), is(pos1));
 		assertThat(list.get(1), is(pos3));
 		assertThat(list.get(2), is(pos2));

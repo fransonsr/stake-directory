@@ -5,7 +5,7 @@ import javax.annotation.PostConstruct;
 import org.provoysa12th.directory.domain.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class OrganizationRepositoryImpl implements BaseRepositoryExtension<Organization> {
+public class OrganizationRepositoryImpl extends BaseRepositoryImpl<Organization> {
 
 	@Autowired
 	OrganizationRepository baseRepository;
@@ -13,12 +13,11 @@ public class OrganizationRepositoryImpl implements BaseRepositoryExtension<Organ
 
 	@PostConstruct
 	public void init() {
-		helper = new BaseRepositoryExtensionHelper<Organization>(baseRepository);
+		helper = new BaseRepositoryExtensionHelper<Organization>(neo4jTemplate, baseRepository);
 	}
 
 	@Override
 	public Organization saveEntity(Organization entity) {
 		return helper.saveEntity(entity);
 	}
-
 }

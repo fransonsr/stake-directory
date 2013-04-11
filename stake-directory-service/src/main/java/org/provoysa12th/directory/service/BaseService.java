@@ -14,4 +14,6 @@ public interface BaseService<T extends BaseEntity> {
 	T findByUUID(UUID uuid);
 
 	T createOrUpdate(T entity);
+
+	<E> E load(E entity);
 }

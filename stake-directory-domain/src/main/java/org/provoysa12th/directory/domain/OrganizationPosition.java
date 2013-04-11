@@ -2,8 +2,6 @@ package org.provoysa12th.directory.domain;
 
 import java.util.Comparator;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.data.neo4j.annotation.EndNode;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.RelationshipEntity;
@@ -14,9 +12,6 @@ import org.springframework.data.neo4j.annotation.StartNode;
  * This relationship can be flagged 'presiding' in that the position
  * represents the presiding position in the organization. The 'orderIndex'
  * allows the relationships to be ordered.
- * <p>
- * Business key: organization, position
- * </p>
  * @author FransonSR
  *
  */
@@ -103,29 +98,6 @@ public class OrganizationPosition {
 
 	public void setOrderIndex(int orderIndex) {
 		this.orderIndex = orderIndex;
-	}
-
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder()
-			.append(organization)
-			.append(position)
-			.toHashCode();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		OrganizationPosition other = (OrganizationPosition) obj;
-		return new EqualsBuilder()
-			.append(organization, other.getOrganization())
-			.append(position, other.getPosition())
-			.isEquals();
 	}
 
 	@Override

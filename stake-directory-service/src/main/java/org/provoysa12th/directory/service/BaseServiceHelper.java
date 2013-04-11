@@ -35,5 +35,9 @@ public class BaseServiceHelper<T extends BaseEntity> implements BaseService<T> {
 		return baseRepository.saveEntity(entity);
 	}
 
+	@Override
+	public <E> E load(E entity) {
+		return baseRepository.neo4JTemplate().fetch(entity);
+	}
 
 }

@@ -45,4 +45,9 @@ public class PositionServiceImpl implements PositionService {
 		return helper.createOrUpdate(entity);
 	}
 
+	@Override
+	public <E> E load(E entity) {
+		return helper.load(entity);
+	}
+
 }

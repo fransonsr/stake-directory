@@ -2,6 +2,7 @@ package org.provoysa12th.directory.service;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import java.util.UUID;
 
@@ -22,6 +23,9 @@ public class OrganizationServiceImplComponentTest {
 
 	@Autowired
 	OrganizationService organizationService;
+
+	@Autowired
+	PositionService positionService;
 
 	@Test
 	public void testFindById() throws Exception {
@@ -82,7 +86,22 @@ public class OrganizationServiceImplComponentTest {
 	}
 
 	@Test
-	public void testAddPosition_tansitivePersistence() throws Exception {
+	public void testAddPosition() throws Exception {
+		Organization organization = organizationService.createOrUpdate(new Organization());
+		Position position = new Position();
+		position = positionService.createOrUpdate(position);
+
+		organizationService.addPosition(organization, position, false, -1);
+
+		assertThat(organization.getOrganizationPositions(), is(not(empty())));
+		for(OrganizationPosition orgPosition : organization.getOrganizationPositions()) {
+			assertThat(orgPosition.getPosition().getNodeId(), is(notNullValue()));
+			assertThat(orgPosition.getPosition().getOrganization(), is(organization));
+		}
+	}
+
+	@Test
+	public void testAddPosition_nonPersistentPosition() throws Exception {
 		Organization organization = organizationService.createOrUpdate(new Organization());
 		Position position = new Position();
 

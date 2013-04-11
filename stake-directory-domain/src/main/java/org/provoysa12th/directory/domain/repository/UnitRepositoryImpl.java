@@ -5,7 +5,7 @@ import javax.annotation.PostConstruct;
 import org.provoysa12th.directory.domain.Unit;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class UnitRepositoryImpl implements BaseRepositoryExtension<Unit> {
+public class UnitRepositoryImpl extends BaseRepositoryImpl<Unit> {
 
 	@Autowired
 	UnitRepository baseRepository;
@@ -13,7 +13,7 @@ public class UnitRepositoryImpl implements BaseRepositoryExtension<Unit> {
 
 	@PostConstruct
 	public void init() {
-		helper = new BaseRepositoryExtensionHelper<Unit>(baseRepository);
+		helper = new BaseRepositoryExtensionHelper<Unit>(neo4jTemplate, baseRepository);
 	}
 
 	@Override

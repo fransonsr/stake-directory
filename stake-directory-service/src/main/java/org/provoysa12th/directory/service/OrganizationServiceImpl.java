@@ -49,18 +49,27 @@ public class OrganizationServiceImpl implements OrganizationService {
 	}
 
 	@Override
+	public <E> E load(E entity) {
+		return helper.load(entity);
+	}
+
+	@Override
 	public OrganizationPosition addPosition(Organization organization, Position position) {
 		return addPosition(organization, position, false, -1);
 	}
 
 	@Override
 	public OrganizationPosition addPosition(Organization organization, Position position, boolean presiding, int orderIndex) {
-		position = positionService.createOrUpdate(position);
+		if(position.getNodeId() == null) {
+			position = positionService.createOrUpdate(position);
+		}
 
-		OrganizationPosition organizationPosition = new OrganizationPosition(organization, position);
+		OrganizationPosition organizationPosition = new OrganizationPosition(organization, position, presiding, orderIndex);
 		organization.getOrganizationPositions().add(organizationPosition);
+		position.setOrganizationPosition(organizationPosition);
 		position.setOrganization(organization);
 
+		positionService.createOrUpdate(position);
 		organizationRepository.saveEntity(organization);
 
 		return organizationPosition;

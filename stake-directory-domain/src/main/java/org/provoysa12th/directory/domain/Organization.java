@@ -10,6 +10,8 @@ import java.util.Set;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.neo4j.graphdb.Direction;
+import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
 
@@ -33,9 +35,14 @@ public class Organization extends BaseEntity {
 
 	private String name;
 	private Type type;
+
+	@Fetch
 	private Unit unit;
 
-	@RelatedToVia(type = OrganizationPosition.TYPE_ORGANIZATION_POSITION)
+	@RelatedToVia(type = UnitOrganization.TYPE_UNIT_ORGANIZATION, direction = Direction.INCOMING)
+	private UnitOrganization unitOrganization;
+
+	@RelatedToVia(type = OrganizationPosition.TYPE_ORGANIZATION_POSITION, direction = Direction.OUTGOING)
 	private Set<OrganizationPosition> organizationPositions = new HashSet<OrganizationPosition>();
 
 	public String getName() {
@@ -60,6 +67,14 @@ public class Organization extends BaseEntity {
 
 	public void setUnit(Unit unit) {
 		this.unit = unit;
+	}
+
+	public UnitOrganization getUnitOrganization() {
+		return unitOrganization;
+	}
+
+	public void setUnitOrganization(UnitOrganization unitOrganization) {
+		this.unitOrganization = unitOrganization;
 	}
 
 	public Set<OrganizationPosition> getOrganizationPositions() {
@@ -128,6 +143,7 @@ public class Organization extends BaseEntity {
 		builder.append("Organization [name=").append(name)
 				.append(", type=").append(type)
 				.append(", unit=").append(unit)
+				.append(", id=").append(getNodeId())
 				.append("]");
 		return builder.toString();
 	}

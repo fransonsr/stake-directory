@@ -23,6 +23,9 @@ public class UnitServiceImplComponentTest {
 	@Autowired
 	UnitService unitService;
 
+	@Autowired
+	OrganizationService organizationService;
+
 	private Unit testUnit() {
 		Unit newUnit = new Unit();
 		newUnit.setName("Test Unit");
@@ -97,20 +100,46 @@ public class UnitServiceImplComponentTest {
 	}
 
 	@Test
-	public void testAddOrganization_transitivePersistence() throws Exception {
+	public void testAddOrganization() throws Exception {
 		Unit newUnit = testUnit();
-
 		Unit unit = unitService.createOrUpdate(newUnit);
 
-		unitService.addOrganization(unit, new Organization(), false, -1);
+		Organization newOrganization = new Organization();
+		newOrganization = organizationService.createOrUpdate(newOrganization);
+
+		UnitOrganization unitOrganization = unitService.addOrganization(unit, newOrganization, false, -1);
+		unit = unitOrganization.getUnit();
 
 		assertThat(unit.getUnitOrganizations(), is(not(empty())));
 
-		for(UnitOrganization unitOrganization : unit.getUnitOrganizations()) {
-			Organization organization = unitOrganization.getOrganization();
+		for(UnitOrganization unitOrg : unit.getUnitOrganizations()) {
+			Organization organization = unitOrg.getOrganization();
 			assertThat(organization, is(notNullValue()));
 			assertThat(organization.getNodeId(), is(notNullValue()));
 			assertThat(organization.getUnit(), is(unit));
+			assertThat(organization.getUnitOrganization().getUnit(), is(unit));
 		}
 	}
+
+	@Test
+	public void testAddOrganization_nonPersistentOrganization() throws Exception {
+		Unit newUnit = testUnit();
+		Unit unit = unitService.createOrUpdate(newUnit);
+
+		Organization newOrganization = new Organization();
+
+		UnitOrganization unitOrganization = unitService.addOrganization(unit, newOrganization, false, -1);
+		unit = unitOrganization.getUnit();
+
+		assertThat(unit.getUnitOrganizations(), is(not(empty())));
+
+		for(UnitOrganization unitOrg : unit.getUnitOrganizations()) {
+			Organization organization = unitOrg.getOrganization();
+			assertThat(organization, is(notNullValue()));
+			assertThat(organization.getNodeId(), is(notNullValue()));
+			assertThat(organization.getUnit(), is(unit));
+			assertThat(organization.getUnitOrganization().getUnit(), is(unit));
+		}
+	}
+
 }

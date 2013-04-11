@@ -2,7 +2,10 @@ package org.provoysa12th.directory.domain;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.neo4j.graphdb.Direction;
+import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 /**
  * Represents and individual position for an Organization.
@@ -33,7 +36,12 @@ public class Position extends BaseEntity {
 
 	private String name;
 	private Type type;
+
+	@Fetch
 	private Organization organization;
+
+	@RelatedToVia(type = OrganizationPosition.TYPE_ORGANIZATION_POSITION, direction = Direction.INCOMING)
+	private OrganizationPosition organizationPosition;
 
 	public String getName() {
 		return name;
@@ -57,6 +65,14 @@ public class Position extends BaseEntity {
 
 	public void setOrganization(Organization organization) {
 		this.organization = organization;
+	}
+
+	public OrganizationPosition getOrganizationPosition() {
+		return organizationPosition;
+	}
+
+	public void setOrganizationPosition(OrganizationPosition organizationPosition) {
+		this.organizationPosition = organizationPosition;
 	}
 
 	@Override
@@ -90,6 +106,7 @@ public class Position extends BaseEntity {
 		builder.append("Position [name=").append(name)
 				.append(", type=").append(type)
 				.append(", organization=").append(organization)
+				.append(", id=").append(getNodeId())
 				.append("]");
 		return builder.toString();
 	}

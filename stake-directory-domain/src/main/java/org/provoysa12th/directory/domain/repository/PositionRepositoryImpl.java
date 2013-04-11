@@ -5,7 +5,7 @@ import javax.annotation.PostConstruct;
 import org.provoysa12th.directory.domain.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class PositionRepositoryImpl implements BaseRepositoryExtension<Position> {
+public class PositionRepositoryImpl extends BaseRepositoryImpl<Position> {
 
 	@Autowired
 	PositionRepository baseRepository;
@@ -13,7 +13,7 @@ public class PositionRepositoryImpl implements BaseRepositoryExtension<Position>
 
 	@PostConstruct
 	public void init() {
-		helper = new BaseRepositoryExtensionHelper<Position>(baseRepository);
+		helper = new BaseRepositoryExtensionHelper<Position>(neo4jTemplate, baseRepository);
 	}
 
 	@Override

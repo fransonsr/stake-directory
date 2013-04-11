@@ -126,6 +126,7 @@ public class Unit extends BaseEntity {
 		builder.append("Unit [name=").append(name)
 				.append(", unitNumber=").append(unitNumber)
 				.append(", unitType=").append(type)
+				.append(", id=").append(getNodeId())
 				.append("]");
 		return builder.toString();
 	}
