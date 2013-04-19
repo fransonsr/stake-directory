@@ -14,6 +14,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 /**
@@ -27,10 +28,13 @@ import org.springframework.data.neo4j.annotation.RelatedToVia;
 @NodeEntity
 public class Unit extends BaseEntity {
 
+	public static final String TYPE_UNIT_MEMBER = "UNIT_MEMBER";
+
 	public static enum Type {
 		Stake,
 		Ward;
 	}
+
 
 	@NotNull
 	private String name;
@@ -40,6 +44,9 @@ public class Unit extends BaseEntity {
 
 	@RelatedToVia(type = UnitOrganization.TYPE_UNIT_ORGANIZATION, direction = Direction.OUTGOING)
 	private Set<UnitOrganization> unitOrganizations = new HashSet<UnitOrganization>();
+
+	@RelatedTo(type = TYPE_UNIT_MEMBER, direction = Direction.OUTGOING)
+	private Set<Member> members = new HashSet<Member>();
 
 	public String getName() {
 		return name;

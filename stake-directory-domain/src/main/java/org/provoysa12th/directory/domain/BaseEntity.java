@@ -14,7 +14,7 @@ public abstract class BaseEntity {
 
 	@GraphId
 	private Long nodeId;
-	@Indexed
+	@Indexed(level = Indexed.Level.INSTANCE)
 	private UUID uuid;
 
 	public Long getNodeId() {
