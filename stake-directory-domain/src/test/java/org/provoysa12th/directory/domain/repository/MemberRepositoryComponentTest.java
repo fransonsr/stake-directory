@@ -49,4 +49,16 @@ public class MemberRepositoryComponentTest {
 		assertThat(actual, is(notNullValue()));
 		assertThat(actual.getUuid(), is(equalTo(uuid)));
 	}
+
+	@Test
+	public void testFindByUuid() throws Exception {
+		Member member = new Member();
+
+		member = memberRepository.saveEntity(member);
+		UUID uuid = member.getUuid();
+
+		Member actual = memberRepository.findByUuid(uuid);
+		assertThat(actual, is(notNullValue()));
+		assertThat(actual.getUuid(), is(equalTo(uuid)));
+	}
 }

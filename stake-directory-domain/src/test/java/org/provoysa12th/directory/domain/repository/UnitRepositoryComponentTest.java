@@ -62,14 +62,14 @@ public class UnitRepositoryComponentTest {
 	}
 
 	@Test
-	public void testFindByName() throws Exception {
+	public void testFindAllByName() throws Exception {
 		Unit unit = new Unit();
 		unit.setName("Unit for FindByName");
 
 		unit = unitRepository.saveEntity(unit);
 		UUID uuid = unit.getUuid();
 
-		List<Unit> actual = unitRepository.findByName("Unit for FindByName");
+		List<Unit> actual = unitRepository.findAllByName("Unit for FindByName");
 		assertThat(actual, is(notNullValue()));
 
 		Unit actualUnit = actual.get(0);
@@ -77,7 +77,7 @@ public class UnitRepositoryComponentTest {
 	}
 
 	@Test
-	public void testFindByNameLike() throws Exception {
+	public void testFindAllByNameLike() throws Exception {
 		Unit unit = new Unit();
 		unit.setName("Test Unit for FindByNameLike");
 
@@ -85,7 +85,7 @@ public class UnitRepositoryComponentTest {
 		UUID uuid = unit.getUuid();
 
 		String regex = ".*FindByNameLike";
-		List<Unit> actual = unitRepository.findByNameLike(regex);
+		List<Unit> actual = unitRepository.findAllByNameLike(regex);
 		assertThat(actual, is(notNullValue()));
 
 		Unit actualUnit = actual.get(0);
@@ -93,7 +93,7 @@ public class UnitRepositoryComponentTest {
 	}
 
 	@Test
-	public void testFindByType() throws Exception {
+	public void testFindAllByType() throws Exception {
 		Unit ward = new Unit();
 		ward.setType(Type.Ward);
 
@@ -105,7 +105,7 @@ public class UnitRepositoryComponentTest {
 		stake = unitRepository.saveEntity(stake);
 		UUID uuid = stake.getUuid();
 
-		List<Unit> actual = unitRepository.findByType(Type.Stake);
+		List<Unit> actual = unitRepository.findAllByType(Type.Stake);
 		assertThat(actual.size(), is(1));
 
 		Unit actualUnit = actual.get(0);

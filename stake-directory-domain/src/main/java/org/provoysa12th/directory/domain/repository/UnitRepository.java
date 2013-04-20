@@ -12,9 +12,9 @@ public interface UnitRepository extends BaseRepository<Unit> {
 
 	Unit findByUnitNumber(Integer unitNumber);
 
-	List<Unit> findByName(String name);
+	List<Unit> findAllByName(String name);
 
-	List<Unit> findByNameLike(String regex);
+	List<Unit> findAllByNameLike(String regex);
 
-	List<Unit> findByType(Type type);
+	List<Unit> findAllByType(Type type);
 }
