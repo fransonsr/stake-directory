@@ -27,6 +27,7 @@ public class Member extends BaseEntity {
 	private String mrnHash;
 	private String email;
 	private String phone;
+	private boolean hidden = false;
 
 	@RelatedTo(type = Unit.TYPE_UNIT_MEMBER, direction = Direction.OUTGOING)
 	private Unit unit;
@@ -77,6 +78,14 @@ public class Member extends BaseEntity {
 
 	public void setUnit(Unit unit) {
 		this.unit = unit;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
 	}
 
 	@Override
