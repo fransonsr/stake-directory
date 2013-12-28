@@ -60,11 +60,11 @@ public class UnitServiceImplComponentTest {
 	@Test
 	public void testFindByUnitNumber() throws Exception {
 		Unit newUnit = new Unit();
-		newUnit.setUnitNumber(1234);
+		newUnit.setUnitNumber(13);
 
 		unitService.createOrUpdate(newUnit);
 
-		Unit actual = unitService.findByUnitNumber(1234);
+		Unit actual = unitService.findByUnitNumber(13);
 		assertThat(actual, is(notNullValue()));
 	}
 
