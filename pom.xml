@@ -9,6 +9,8 @@
     <modules>
         <module>data-api</module>
         <module>data-impl</module>
+        <module>service-api</module>
+        <module>service-impl</module>
         <module>stake-directory-service</module>
     </modules>
     
@@ -48,6 +50,16 @@
             <dependency>
                 <groupId>org.provoysa12th</groupId>
                 <artifactId>stake-directory-data-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.provoysa12th</groupId>
+                <artifactId>stake-directory-service-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.provoysa12th</groupId>
+                <artifactId>stake-directory-service-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
         
@@ -237,11 +249,6 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>4.3.1.Final</version>
-            </dependency>
-            <dependency>
-                <groupId>org.provoysa12th</groupId>
-                <artifactId>stake-directory-domain</artifactId>
-                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
