@@ -1,10 +1,13 @@
-package org.provoysa12th.directory.service;
+package org.provoysa12th.directory.service.impl;
 
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.provoysa12th.directory.business.templates.ProvoYSA12thStakeDatabase;
+import org.provoysa12th.directory.service.OrganizationService;
+import org.provoysa12th.directory.service.PositionService;
+import org.provoysa12th.directory.service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

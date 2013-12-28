@@ -1,4 +1,4 @@
-package org.provoysa12th.directory.service;
+package org.provoysa12th.directory.service.impl;
 
 import java.util.List;
 import java.util.UUID;
@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 
 import org.provoysa12th.directory.domain.Position;
 import org.provoysa12th.directory.domain.repository.PositionRepository;
+import org.provoysa12th.directory.service.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

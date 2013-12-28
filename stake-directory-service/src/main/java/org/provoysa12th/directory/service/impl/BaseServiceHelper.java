@@ -1,10 +1,11 @@
-package org.provoysa12th.directory.service;
+package org.provoysa12th.directory.service.impl;
 
 import java.util.List;
 import java.util.UUID;
 
 import org.provoysa12th.directory.domain.BaseEntity;
 import org.provoysa12th.directory.domain.repository.BaseRepository;
+import org.provoysa12th.directory.service.BaseService;
 
 public class BaseServiceHelper<T extends BaseEntity> implements BaseService<T> {
 

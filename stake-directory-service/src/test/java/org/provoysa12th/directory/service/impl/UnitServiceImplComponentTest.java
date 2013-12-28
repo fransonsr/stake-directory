@@ -1,4 +1,4 @@
-package org.provoysa12th.directory.service;
+package org.provoysa12th.directory.service.impl;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -12,6 +12,8 @@ import org.provoysa12th.directory.domain.Organization;
 import org.provoysa12th.directory.domain.Unit;
 import org.provoysa12th.directory.domain.Unit.Type;
 import org.provoysa12th.directory.domain.UnitOrganization;
+import org.provoysa12th.directory.service.OrganizationService;
+import org.provoysa12th.directory.service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

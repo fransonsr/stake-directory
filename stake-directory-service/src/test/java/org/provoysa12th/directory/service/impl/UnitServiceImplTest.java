@@ -1,4 +1,4 @@
-package org.provoysa12th.directory.service;
+package org.provoysa12th.directory.service.impl;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -16,6 +16,8 @@ import org.provoysa12th.directory.domain.Organization;
 import org.provoysa12th.directory.domain.Unit;
 import org.provoysa12th.directory.domain.UnitOrganization;
 import org.provoysa12th.directory.domain.repository.UnitRepository;
+import org.provoysa12th.directory.service.OrganizationService;
+import org.provoysa12th.directory.service.impl.UnitServiceImpl;
 import org.springframework.data.neo4j.conversion.EndResult;
 
 public class UnitServiceImplTest {

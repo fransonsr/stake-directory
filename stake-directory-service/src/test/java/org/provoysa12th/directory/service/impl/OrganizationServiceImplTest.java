@@ -1,4 +1,4 @@
-package org.provoysa12th.directory.service;
+package org.provoysa12th.directory.service.impl;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -13,6 +13,8 @@ import org.provoysa12th.directory.domain.Organization;
 import org.provoysa12th.directory.domain.OrganizationPosition;
 import org.provoysa12th.directory.domain.Position;
 import org.provoysa12th.directory.domain.repository.OrganizationRepository;
+import org.provoysa12th.directory.service.PositionService;
+import org.provoysa12th.directory.service.impl.OrganizationServiceImpl;
 
 public class OrganizationServiceImplTest {
 

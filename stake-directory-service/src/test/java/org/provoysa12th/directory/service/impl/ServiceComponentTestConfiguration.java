@@ -1,4 +1,4 @@
-package org.provoysa12th.directory.service;
+package org.provoysa12th.directory.service.impl;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.test.ImpermanentGraphDatabase;

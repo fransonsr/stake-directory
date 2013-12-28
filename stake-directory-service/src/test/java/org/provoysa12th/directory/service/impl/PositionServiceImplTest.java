@@ -1,4 +1,4 @@
-package org.provoysa12th.directory.service;
+package org.provoysa12th.directory.service.impl;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.provoysa12th.directory.domain.Position;
 import org.provoysa12th.directory.domain.repository.PositionRepository;
+import org.provoysa12th.directory.service.impl.PositionServiceImpl;
 
 public class PositionServiceImplTest {
 
