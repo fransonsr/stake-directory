@@ -9,7 +9,6 @@
     <modules>
         <module>data-api</module>
         <module>data-impl</module>
-        <module>stake-directory-domain</module>
         <module>stake-directory-service</module>
     </modules>
     
