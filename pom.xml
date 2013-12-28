@@ -11,7 +11,6 @@
         <module>data-impl</module>
         <module>service-api</module>
         <module>service-impl</module>
-        <module>stake-directory-service</module>
     </modules>
     
     <repositories>
