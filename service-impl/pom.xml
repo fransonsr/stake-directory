@@ -5,15 +5,24 @@
         <artifactId>stake-directory-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    
+
     <artifactId>stake-directory-service-impl</artifactId>
     <name>Service Layer Implementation</name>
-    
+
     <dependencies>
-            <dependency>
-                <groupId>org.provoysa12th</groupId>
-                <artifactId>stake-directory-service-api</artifactId>
-            </dependency>
+        <dependency>
+            <groupId>org.provoysa12th</groupId>
+            <artifactId>stake-directory-service-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.provoysa12th</groupId>
+            <artifactId>stake-directory-data-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.provoysa12th</groupId>
+            <artifactId>stake-directory-data-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>

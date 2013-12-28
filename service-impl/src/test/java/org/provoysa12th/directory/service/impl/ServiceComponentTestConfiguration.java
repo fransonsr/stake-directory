@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({"org.provoysa12th.directory.service"})
+@ComponentScan({"org.provoysa12th.directory.service.impl"})
 @EnableNeo4jRepositories(basePackages = {"org.provoysa12th.directory.domain.repository"})
 public class ServiceComponentTestConfiguration extends Neo4jConfiguration {
 	@Bean
