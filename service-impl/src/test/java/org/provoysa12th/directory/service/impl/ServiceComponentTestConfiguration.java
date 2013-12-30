@@ -1,7 +1,7 @@
 package org.provoysa12th.directory.service.impl;
 
 import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.test.ImpermanentGraphDatabase;
+import org.neo4j.test.TestGraphDatabaseFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class ServiceComponentTestConfiguration extends Neo4jConfiguration {
 	@Bean
 	public GraphDatabaseService graphDatabaseService() {
-		return new ImpermanentGraphDatabase();
+		return new TestGraphDatabaseFactory().newImpermanentDatabase();
 	}
 }
