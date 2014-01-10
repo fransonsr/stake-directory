@@ -11,6 +11,8 @@
 		<module>data-impl</module>
 		<module>service-api</module>
 		<module>service-impl</module>
+		<module>rest-api</module>
+		<module>rest-impl</module>
 		<module>server</module>
 	</modules>
 
@@ -60,6 +62,16 @@
 			<dependency>
 				<groupId>org.provoysa12th</groupId>
 				<artifactId>stake-directory-service-impl</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.provoysa12th</groupId>
+				<artifactId>stake-directory-rest-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.provoysa12th</groupId>
+				<artifactId>stake-directory-rest-impl</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
