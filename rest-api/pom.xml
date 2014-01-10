@@ -27,5 +27,9 @@
             <artifactId>junit-dep</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
+        </dependency>
     </dependencies>
 </project>

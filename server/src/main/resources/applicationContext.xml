@@ -6,5 +6,5 @@
                             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean class="example.EchoResource" />
-
+    <bean class="org.provoysa12th.directory.rest.impl.WellknownResourcesImpl"/>
 </beans>
