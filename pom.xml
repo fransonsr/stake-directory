@@ -11,6 +11,7 @@
 		<module>data-impl</module>
 		<module>service-api</module>
 		<module>service-impl</module>
+		<module>server</module>
 	</modules>
 
 	<repositories>
@@ -107,6 +108,14 @@
 				<version>1.9.3</version>
 	            <type>test-jar</type>
 	            <scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.glassfish.jersey</groupId>
+				<artifactId>jersey-bom</artifactId>
+				<version>2.5</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 
 			<dependency>
