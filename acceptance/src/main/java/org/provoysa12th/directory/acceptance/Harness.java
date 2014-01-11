@@ -21,7 +21,7 @@ public class Harness {
 	private Map<String, List<Class<?>>> classMap = new HashMap<>();
 
 	public Harness() {
-		this("org.provoysa12th.directory.acceptance");
+		this("org.provoysa12th.directory.acceptance.tests");
 	}
 
 	public Harness(String thePackage) {

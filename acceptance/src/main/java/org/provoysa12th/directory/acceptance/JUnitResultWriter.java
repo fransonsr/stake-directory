@@ -24,9 +24,10 @@ public class JUnitResultWriter {
 		out.println("         failed: " + result.getFailureCount() + "; ignored: " + result.getIgnoreCount());
 
 		if(result.getFailureCount() > 0) {
-			out.println("--Failures-------------------------------------------------------------");
+			out.println("---Failure-------------------------------------------------------------");
 			for(Failure failure : result.getFailures()) {
 				out.println(failure);
+				out.println(failure.getTrace());
 			}
 		}
 

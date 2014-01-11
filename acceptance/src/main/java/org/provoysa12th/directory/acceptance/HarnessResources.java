@@ -27,6 +27,9 @@ public class HarnessResources {
 	@POST
 	@Path("/test")
 	public Response startTest(@QueryParam("uri") String uri) {
+
+		System.setProperty("instance.uri", uri);
+
 		Harness harness = new Harness();
 
 		harness.start(harness.discoveredGroups());
