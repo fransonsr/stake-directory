@@ -14,6 +14,7 @@
 		<module>rest-api</module>
 		<module>rest-impl</module>
 		<module>server</module>
+        <module>acceptance</module>
 	</modules>
 
 	<repositories>
@@ -74,6 +75,12 @@
 				<artifactId>stake-directory-rest-impl</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+            <dependency>
+                <groupId>org.provoysa12th</groupId>
+                <artifactId>stake-directory-server</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
 
 			<dependency>
 				<groupId>org.hamcrest</groupId>
