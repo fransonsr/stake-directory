@@ -29,7 +29,7 @@ public class HarnessResources {
 	public Response startTest(@QueryParam("uri") String uri) {
 		Harness harness = new Harness();
 
-		harness.start();
+		harness.start(harness.discoveredGroups());
 
 		return null;
 	}
