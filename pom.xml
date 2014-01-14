@@ -11,6 +11,9 @@
 		<module>data-impl</module>
 		<module>service-api</module>
 		<module>service-impl</module>
+		<module>rest-api</module>
+		<module>rest-impl</module>
+		<module>server</module>
 	</modules>
 
 	<repositories>
@@ -61,6 +64,16 @@
 				<artifactId>stake-directory-service-impl</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.provoysa12th</groupId>
+				<artifactId>stake-directory-rest-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.provoysa12th</groupId>
+				<artifactId>stake-directory-rest-impl</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.hamcrest</groupId>
@@ -107,6 +120,14 @@
 				<version>1.9.3</version>
 	            <type>test-jar</type>
 	            <scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.glassfish.jersey</groupId>
+				<artifactId>jersey-bom</artifactId>
+				<version>2.5.1</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 
 			<dependency>
