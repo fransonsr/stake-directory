@@ -1,0 +1,130 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.provoysa12th</groupId>
+        <artifactId>stake-directory-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>stake-directory-acceptance</artifactId>
+    <name>Acceptance Test Application</name>
+    <packaging>war</packaging>
+
+    <properties>
+        <!--
+            Explicitly declaring the source encoding eliminates the following
+            message: [WARNING] Using platform encoding (UTF-8 actually) to copy
+            filtered resources, i.e. build is platform dependent!
+        -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <cargo-maven2-plugin.version>1.4.4</cargo-maven2-plugin.version>
+        <apache-tomcat.version>7.0.32</apache-tomcat.version>
+        <apache-tomcat.timeout>300000</apache-tomcat.timeout>
+
+        <!-- Cargo plugin defaults -->
+        <cargo.port.offset>0</cargo.port.offset>
+        <cargo.debug.port>8000</cargo.debug.port>
+        <cargo.jmx.port>9000</cargo.jmx.port>
+        <cargo.context>${project.artifactId}</cargo.context>
+        <cargo.debug.startup>n</cargo.debug.startup>
+        <spring.profiles.active>local</spring.profiles.active>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>${cargo-maven2-plugin.version}</version>
+                <configuration>
+                    <deployables>
+                        <deployable>
+                            <properties>
+                                <context>ROOT</context>
+                            </properties>
+                        </deployable>
+                        <deployable>
+                            <groupId>org.provoysa12th</groupId>
+                            <artifactId>stake-directory-server</artifactId>
+                            <type>war</type>
+                            <properties>
+                                <context>stake-directory-server</context>
+                            </properties>
+                        </deployable>
+                    </deployables>
+                    <container>
+                        <containerId>tomcat7x</containerId>
+                        <artifactInstaller>
+                            <groupId>org.apache.tomcat</groupId>
+                            <artifactId>apache-tomcat</artifactId>
+                            <version>${apache-tomcat.version}</version>
+                            <type>zip</type>
+                        </artifactInstaller>
+                        <append>false</append>
+                        <timeout>${apache-tomcat.timeout}</timeout>
+                    </container>
+                    <configuration>
+                        <properties>
+                            <cargo.jvmargs>-Dspring.profiles.active=${spring.profiles.active}
+                                -Xdebug -Xnoagent -Djava.compiler=NONE
+                                -Xrunjdwp:transport=dt_socket,server=y,suspend=${cargo.debug.startup},address=${cargo.debug.port}
+                                -Dcom.sun.management.jmxremote
+                                -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
+                                -Dcom.sun.management.jmxremote.port=${cargo.jmx.port}
+                            </cargo.jvmargs>
+                            <cargo.logging>medium</cargo.logging>
+                            <cargo.port.offset>${cargo.port.offset}</cargo.port.offset>
+                        </properties>
+                        <home>${project.build.directory}/tomcat7x</home>
+                    </configuration>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.provoysa12th</groupId>
+            <artifactId>stake-directory-server</artifactId>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit-dep</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.ext</groupId>
+            <artifactId>jersey-spring3</artifactId>
+        </dependency>
+    </dependencies>
+</project>
