@@ -11,7 +11,7 @@ import javax.ws.rs.core.Variant;
 import javax.ws.rs.core.Variant.VariantListBuilder;
 
 import org.apache.abdera.model.Feed;
-import org.provoysa12yh.directory.rest.WellknownResources;
+import org.provoysa12th.directory.rest.WellknownResources;
 
 import com.google.common.net.HttpHeaders;
 

@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.Variant;
 
 import org.junit.Test;
-import org.provoysa12yh.directory.rest.WellknownResources;
+import org.provoysa12th.directory.rest.WellknownResources;
 
 import com.google.common.net.HttpHeaders;
 
