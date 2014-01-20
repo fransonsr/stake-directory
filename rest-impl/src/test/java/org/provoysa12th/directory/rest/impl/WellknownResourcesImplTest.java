@@ -4,10 +4,13 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
+import java.net.URI;
+
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Variant;
 
 import org.junit.Test;
@@ -33,8 +36,12 @@ public class WellknownResourcesImplTest {
 
 		Request request = mock(Request.class);
 		when(request.selectVariant(WellknownResourcesImpl.VARIANTS)).thenReturn(variant);
-
 		test.request = request;
+
+		UriInfo uriInfo = mock(UriInfo.class);
+		when(uriInfo.getBaseUri()).thenReturn(new URI("http://localhost:8080/service"));
+		test.uriInfo = uriInfo;
+
 
 		Response response = test.serviceMeta();
 		assertThat(response.getStatus(), is(Status.OK.getStatusCode()));

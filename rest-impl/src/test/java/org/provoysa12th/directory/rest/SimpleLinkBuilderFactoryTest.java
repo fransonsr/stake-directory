@@ -13,7 +13,10 @@ public class SimpleLinkBuilderFactoryTest {
 	@Test
 	public void testFactory() throws Exception {
 		HttpServletRequest request = mock(HttpServletRequest.class);
-		when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8080/server"));
+		when(request.getScheme()).thenReturn("http");
+		when(request.getServerName()).thenReturn("localhost");
+		when(request.getServerPort()).thenReturn(8080);
+		when(request.getServletPath()).thenReturn("/server");
 
 		LinkBuilderFactory test = new SimpleLinkBuilderFactory(request);
 		LinkBuilder builder = test.newBuilder();

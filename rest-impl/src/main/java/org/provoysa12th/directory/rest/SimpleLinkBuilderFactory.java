@@ -1,5 +1,8 @@
 package org.provoysa12th.directory.rest;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class SimpleLinkBuilderFactory implements LinkBuilderFactory {
@@ -11,9 +14,20 @@ public class SimpleLinkBuilderFactory implements LinkBuilderFactory {
 	}
 
 	public LinkBuilder newBuilder() {
-		String baseURI = request.getRequestURL().toString();
+		try {
+			String scheme = request.getScheme();
+			String userInfo = null;
+			String host = request.getServerName();
+			int port = request.getServerPort();
+			String path = request.getServletPath();
+			String query = null;
+			String fragment = null;
+			URI uri = new URI(scheme, userInfo, host, port, path, query, fragment);
+			return new LinkBuilder().baseURI(uri.toString());
 
-		return new LinkBuilder().baseURI(baseURI);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException("Error creating base URI", e);
+		}
 	}
 
 }
