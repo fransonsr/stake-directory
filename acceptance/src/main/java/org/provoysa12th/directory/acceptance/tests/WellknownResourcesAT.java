@@ -46,6 +46,7 @@ public class WellknownResourcesAT {
 		assertThat(xml, hasXPath("/feed/updated"));
 		assertThat(xml, hasXPath("/feed/title"));
 		assertThat(xml, hasXPath("/feed/author"));
+		assertThat(xml, hasXPath("/feed/link[@rel='self']"));
 	}
 
 
