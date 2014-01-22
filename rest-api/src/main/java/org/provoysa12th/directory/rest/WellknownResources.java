@@ -1,4 +1,4 @@
-package org.provoysa12yh.directory.rest;
+package org.provoysa12th.directory.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
