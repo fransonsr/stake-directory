@@ -2,6 +2,8 @@ package org.provoysa12yh.directory.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.stereotype.Component;
@@ -21,6 +23,15 @@ public interface WellknownResources {
 	 */
 	@Path("/heartbeat")
 	@GET
-	public abstract Response heartbeat();
+	Response heartbeat();
+
+	/**
+	 * Return the Service Discovery document (Atom feed).
+	 * @return
+	 */
+	@Path("/service-meta")
+	@GET
+	@Produces({MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_JSON})
+	Response serviceMeta();
 
 }
